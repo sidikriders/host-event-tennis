@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate('/', { replace: true });
+    }
+  }, [user, authLoading, navigate]);
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -35,8 +43,8 @@ const Login: React.FC = () => {
               className="h-14 w-auto"
             />
           </div>
-          <h1 className="text-4xl font-display font-bold bg-linear-to-r from-tennis-court to-primary-700 bg-clip-text text-transparent mb-2">
-            Welcome Back
+          <h1 className="text-4xl font-display font-bold bg-linear-to-r from-tennis-court to-primary-700 bg-clip-text mb-2">
+            Welcome
           </h1>
           <p className="text-gray-600 font-medium">
             Sign in to manage your tennis events
