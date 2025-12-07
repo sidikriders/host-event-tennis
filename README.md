@@ -2,6 +2,28 @@
 
 Tool buat para host tennis, especially saya sendiri lol
 
+## To Do
+- [ ] Add more for event
+  - [ ] event config for match type: Single | Double
+  - [ ] event config for set per match: 1
+  - [ ] event config for minimum game per set: 4
+  - [ ] event config for maximum game per set: 5
+- [ ] Create Match
+- [ ] Match Detail
+  - [ ] Interactive Score Board per Game
+  - [ ] Score per Set
+  - [ ] Score per Match
+- [ ] List of Match on Event
+  - [ ] Score of the Match
+    - [ ] Set Score
+      - [ ] Game Score
+- [ ] Auto Generate Match
+  - [ ] Only Select Present Player
+  - [ ] Select Based on Least Played Player
+  - [ ] Maybe can also based the team based on Player point
+- [ ] Table Point for Players per Event
+  - [ ] Points Calculation
+
 ## Tech Stack
 
 - ⚛️ React 19
