@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, orderBy, getDocs, onSnapshot, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, query, where, orderBy, getDocs, onSnapshot, Timestamp, updateDoc, doc } from 'firebase/firestore';
 import type { Firestore, DocumentData } from 'firebase/firestore';
 // import { db } from '../firebase';
 
@@ -8,6 +8,8 @@ export interface EventData {
   location?: string;
   date_start: Date | Timestamp;
   date_end?: Date | Timestamp;
+  is_soft_deleted?: boolean;
+  deleted_at?: Date | Timestamp | null;
   // additional fields may be added later
 }
 
@@ -27,6 +29,8 @@ export async function createEvent(firestore: Firestore, data: EventData) {
     date_start: data.date_start instanceof Date ? Timestamp.fromDate(data.date_start) : data.date_start,
     date_end: data.date_end instanceof Date ? Timestamp.fromDate(data.date_end as Date) : data.date_end ?? null,
     created_at: Timestamp.now(),
+    is_soft_deleted: false,
+    deleted_at: null,
   };
 
   const docRef = await addDoc(eventsCollection(firestore), payload);
@@ -37,7 +41,13 @@ export async function createEvent(firestore: Firestore, data: EventData) {
  * Get events created by a specific user (one-time fetch).
  */
 export async function getEventsByUser(firestore: Firestore, userId: string) {
-  const q = query(eventsCollection(firestore), where('created_by_id', '==', userId), orderBy('date_start'));
+  // only return events that are not soft-deleted
+  const q = query(
+    eventsCollection(firestore),
+    where('created_by_id', '==', userId),
+    where('is_soft_deleted', '==', false),
+    orderBy('date_start')
+  );
   const snap = await getDocs(q);
   const events: StoredEvent[] = snap.docs.map((d) => ({ id: d.id, ...(d.data() as EventData) }));
   return events;
@@ -47,10 +57,25 @@ export async function getEventsByUser(firestore: Firestore, userId: string) {
  * Listen to realtime updates of events for a user. Returns an unsubscribe function.
  */
 export function subscribeToUserEvents(firestore: Firestore, userId: string, callback: (events: StoredEvent[]) => void) {
-  const q = query(eventsCollection(firestore), where('created_by_id', '==', userId), orderBy('date_start'));
+  // only subscribe to non-deleted events
+  const q = query(
+    eventsCollection(firestore),
+    where('created_by_id', '==', userId),
+    where('is_soft_deleted', '==', false),
+    orderBy('date_start')
+  );
   const unsub = onSnapshot(q, (snapshot) => {
     const events: StoredEvent[] = snapshot.docs.map((d) => ({ id: d.id, ...(d.data() as EventData) }));
     callback(events);
   });
   return unsub;
+}
+
+/**
+ * Delete an event document by id.
+ */
+/** Soft-delete an event by setting `is_soft_deleted = true` and `deleted_at` timestamp. */
+export async function deleteEvent(firestore: Firestore, eventId: string) {
+  const ref = doc(firestore, 'events', eventId);
+  await updateDoc(ref, { is_soft_deleted: true, deleted_at: Timestamp.now() });
 }
