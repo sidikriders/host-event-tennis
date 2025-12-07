@@ -1,6 +1,6 @@
 # Host Event Tennis
 
-Tool buat para host tennis, espescially saya sendiri lol
+Tool buat para host tennis, especially saya sendiri lol
 
 ## Tech Stack
 
