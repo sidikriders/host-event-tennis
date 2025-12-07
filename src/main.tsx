@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Events from './pages/Events';
+import EventsCreate from './pages/EventsCreate';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Events />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/events/create',
+    element: (
+      <ProtectedRoute>
+        <EventsCreate />
       </ProtectedRoute>
     ),
   },
