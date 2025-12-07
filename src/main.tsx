@@ -9,6 +9,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Events from './pages/Events';
 import EventsCreate from './pages/EventsCreate';
+import EventDetail from './pages/EventDetail';
+import EventPlayers from './pages/EventPlayers';
+import EventPlayersCreate from './pages/EventPlayersCreate';
 import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
@@ -25,6 +28,30 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Events />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/events/:id',
+    element: (
+      <ProtectedRoute>
+        <EventDetail />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/events/:id/players',
+    element: (
+      <ProtectedRoute>
+        <EventPlayers />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/events/:id/players/create',
+    element: (
+      <ProtectedRoute>
+        <EventPlayersCreate />
       </ProtectedRoute>
     ),
   },

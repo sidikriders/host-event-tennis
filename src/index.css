@@ -31,3 +31,10 @@ body {
   box-shadow: none;
   transform: none;
 }
+.btn-primary.btn-primary-small {
+  padding: unset;
+  border-radius: unset;
+  padding-block: calc(var(--spacing) * 1);
+  padding-inline: calc(var(--spacing) * 3);
+  border-radius: 0.25rem;
+}

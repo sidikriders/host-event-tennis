@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import dayjs from 'dayjs';
 import type { StoredEvent } from '../services/events';
+import { formatDate } from '../utils/date';
 import { db } from '../firebase';
 import { deleteEvent } from '../services/events';
 import CasualButton from './ui/CasualButton';
@@ -12,29 +12,7 @@ interface Props {
   onDelete?: (id: string) => void;
 }
 
-const formatDate = (value: unknown, fmt?: string): string => {
-  if (!value) return '';
-
-  type WithToDate = { toDate: () => Date };
-  const toDate = (v: unknown): Date | null => {
-    if (!v) return null;
-    if ((v as WithToDate)?.toDate && typeof (v as WithToDate).toDate === 'function') {
-      return (v as WithToDate).toDate();
-    }
-    if (v instanceof Date) return v;
-    const d = new Date(String(v));
-    return isNaN(d.getTime()) ? null : d;
-  };
-
-  const dt = toDate(value);
-  if (!dt) return String(value);
-
-  // If a format string is provided, use dayjs to format it (supports Moment-like tokens)
-  if (fmt) return dayjs(dt).format(fmt);
-
-  // Otherwise fallback to locale string for readability
-  return dt.toLocaleString();
-};
+// date formatting moved to `src/utils/date.ts`
 
 const EventCard: React.FC<Props> = ({ event, onView, onDuplicate, onDelete }) => {
   const [deleting, setDeleting] = useState(false);
