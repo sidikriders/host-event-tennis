@@ -60,7 +60,7 @@ const Login: React.FC = () => {
         <button
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-4 px-6 rounded-xl border-2 border-gray-300 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary w-full flex items-center justify-center gap-3"
         >
           <svg className="w-6 h-6" viewBox="0 0 24 24">
             <path

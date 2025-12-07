@@ -10,7 +10,7 @@ const Events: React.FC = () => {
         <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-primary-100">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-4xl font-display font-bold bg-linear-to-r from-tennis-court to-primary-700 bg-clip-text text-transparent mb-2">
+              <h1 className="text-4xl font-display font-bold bg-linear-to-r from-tennis-court to-primary-700 bg-clip-text mb-2">
                 My Events
               </h1>
               <p className="text-gray-600 font-medium">
@@ -19,7 +19,7 @@ const Events: React.FC = () => {
             </div>
             <button
               onClick={() => navigate('/events/create')}
-              className="bg-linear-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
+              className="btn-primary flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -38,7 +38,7 @@ const Events: React.FC = () => {
             </p>
             <button
               onClick={() => navigate('/events/create')}
-              className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200"
+              className="btn-primary inline-flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -48,9 +48,6 @@ const Events: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <div className="absolute top-10 right-10 w-40 h-40 bg-tennis-ball/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-10 left-10 w-48 h-48 bg-primary-400/20 rounded-full blur-3xl"></div>
     </div>
   );
 };
