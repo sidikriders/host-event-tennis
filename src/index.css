@@ -1,3 +1,40 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 50%, #15803d 100%);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Primary button utility used across the app */
+.btn-primary {
+  background-color: var(--color-primary-600, #2563eb);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.12);
+  cursor: pointer;
+  transform: translateY(0);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-700, #1d4ed8);
+  box-shadow: 0 12px 30px rgba(16,24,40,0.18);
+  transform: translateY(-0.125rem);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+.btn-primary.btn-primary-small {
+  padding: unset;
+  border-radius: unset;
+  padding-block: calc(var(--spacing) * 1);
+  padding-inline: calc(var(--spacing) * 3);
+  border-radius: 0.25rem;
+}
